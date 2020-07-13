@@ -9,7 +9,9 @@ namespace DAN_XLV.ViewModel
 {
     class AddProductViewModel:ViewModelBase
     {
+        #region prop
         AddWindow addProduct;
+
         private tblProduct _newProduct;
         public tblProduct newProduct
         {
@@ -23,19 +25,6 @@ namespace DAN_XLV.ViewModel
                 OnPropertyChanged("newProduct");
             }
         }
-
-        public AddProductViewModel(AddWindow open)
-        {
-            addProduct = open;
-            newProduct = new tblProduct();
-        }
-
-        public AddProductViewModel(AddWindow open, tblProduct editProduct)
-        {
-            addProduct = open;
-            newProduct = editProduct;
-        }
-
         private bool _isUpdated;
         public bool isUpdated
         {
@@ -50,6 +39,25 @@ namespace DAN_XLV.ViewModel
         }
 
         public LogIntoFile logAction;
+
+        #endregion
+
+        #region CONSTRUCTOR
+        //for adding new products
+        public AddProductViewModel(AddWindow open)
+        {
+            addProduct = open;
+            newProduct = new tblProduct();
+        }
+        //for editing
+        public AddProductViewModel(AddWindow open, tblProduct editProduct)
+        {
+            addProduct = open;
+            newProduct = editProduct;
+        }
+        #endregion CONSTRUCTOR
+
+  
         #region Commands
 
         private ICommand _save;

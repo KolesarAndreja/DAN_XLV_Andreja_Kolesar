@@ -63,9 +63,9 @@ namespace DAN_XLV.ViewModel
                         man.ShowDialog();
                         break;
                     case "storekeeper":
-                        //Guest openGuest = new Guest(currentUser);
-                        //login.Close();
-                        //openGuest.ShowDialog();
+                        StorekeeperWIndow keeper = new StorekeeperWIndow();
+                        login.Close();
+                        keeper.ShowDialog();
                         break;
                     case null:
                         MessageBox.Show("Invalid username or password. Try again.");

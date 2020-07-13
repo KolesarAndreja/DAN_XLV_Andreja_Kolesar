@@ -27,10 +27,12 @@ namespace DAN_XLV.Service
             }
         }
 
-        //public static List<tblProduct> GetOnlyNotStored()
-        //{
-        //    List<tblProduct> list = (from x i)
-        //}
+        //return only not stored products
+        public static List<tblProduct> GetOnlyNotStored()
+        {
+            List<tblProduct> list = GetAllProducts();
+            return list.Where(s => s.stored == false).ToList();
+        }
 
 
         public static List<vwStoredProduct> GetViewOfAllStoredProducts()

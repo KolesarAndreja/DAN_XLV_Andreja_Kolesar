@@ -58,9 +58,9 @@ namespace DAN_XLV.ViewModel
                 switch (currentUser.role)
                 {
                     case "manager":
-                        //Employee openEmployee = new Employee();
+                        ManagerWindow man = new ManagerWindow();
                         login.Close();
-                        //openEmployee.ShowDialog();
+                        man.ShowDialog();
                         break;
                     case "storekeeper":
                         //Guest openGuest = new Guest(currentUser);

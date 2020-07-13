@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DAN_XLV.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,13 @@ namespace DAN_XLV.View
         public AddWindow()
         {
             InitializeComponent();
+            this.DataContext = new AddProductViewModel(this);
+        }
+
+        public AddWindow(Service.tblProduct p)
+        {
+            InitializeComponent();
+            this.DataContext = new AddProductViewModel(this,p);
         }
     }
 }

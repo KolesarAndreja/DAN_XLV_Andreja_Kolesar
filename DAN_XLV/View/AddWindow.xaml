@@ -7,6 +7,76 @@
         mc:Ignorable="d"
         Title="AddWindow" Height="450" Width="800">
     <Grid>
-        
+        <Label Content="Product Name:"
+               HorizontalAlignment="Left"
+               Height="25"
+               Margin="65,80,0,0"
+               VerticalAlignment="Top"
+               Width="90" />
+        <Label Content="Code:"
+               HorizontalAlignment="Left"
+               Height="25"
+               Margin="65,120,0,0"
+               VerticalAlignment="Top"
+               Width="90" />
+        <Label Content="Quantity:"
+               HorizontalAlignment="Left"
+               Height="25"
+               Margin="65,158,0,0"
+               VerticalAlignment="Top"
+               Width="90"
+               RenderTransformOrigin="0.167,0.48" />
+        <Label Content="Price (rsd):"
+               HorizontalAlignment="Left"
+               Height="25"
+               Margin="65,202,0,0"
+               VerticalAlignment="Top"
+               Width="90" />
+        <TextBox x:Name="txtProductName"
+                 Text="{Binding newProduct.productName, UpdateSourceTrigger=PropertyChanged}"
+                 HorizontalAlignment="Left"
+                 Height="23"
+                 Margin="160,82,0,0"
+                 TextWrapping="Wrap"
+                 VerticalAlignment="Top"
+                 Width="320" />
+        <TextBox x:Name="txtCode"
+                 Text="{Binding newProduct.code, UpdateSourceTrigger=PropertyChanged}"
+                 HorizontalAlignment="Left"
+                 Height="23"
+                 Margin="160,120,0,0"
+                 TextWrapping="Wrap"
+                 VerticalAlignment="Top"
+                 Width="320" />
+        <TextBox x:Name="txtQuantity"
+                 Text="{Binding newProduct.quantity, UpdateSourceTrigger=PropertyChanged}"
+                 HorizontalAlignment="Left"
+                 Height="23"
+                 Margin="160,160,0,0"
+                 TextWrapping="Wrap"
+                 VerticalAlignment="Top"
+                 Width="320" />
+        <TextBox x:Name="txtPrice"
+                 Text="{Binding newProduct.price, UpdateSourceTrigger=PropertyChanged}"
+                 HorizontalAlignment="Left"
+                 Height="23"
+                 Margin="160,204,0,0"
+                 TextWrapping="Wrap"
+                 VerticalAlignment="Top"
+                 Width="320" />
+        <Button Content="Save"
+                Command="{Binding save, UpdateSourceTrigger=PropertyChanged}"
+                HorizontalAlignment="Left"
+                Height="25"
+                Margin="160,260,0,0"
+                VerticalAlignment="Top"
+                Width="140" />
+        <Button Content="Close"
+                Command="{Binding close, UpdateSourceTrigger=PropertyChanged}"
+                HorizontalAlignment="Left"
+                Height="25"
+                Margin="340,260,0,0"
+                VerticalAlignment="Top"
+                Width="140" />
     </Grid>
 </Window>

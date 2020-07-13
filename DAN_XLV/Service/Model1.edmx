@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="dbWarehouseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblProducts">
+          <Key>
+            <PropertyRef Name="productId" />
+          </Key>
+          <Property Name="productId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="productName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="code" Type="int" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="price" Type="int" Nullable="false" />
+          <Property Name="stored" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblStoredProducts">
+          <Key>
+            <PropertyRef Name="storedId" />
+          </Key>
+          <Property Name="storedId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="productId" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'dbWarehouse.dbo.vwStoredProducts' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwStoredProducts">
+          <Key>
+            <PropertyRef Name="storedId" />
+            <PropertyRef Name="productName" />
+            <PropertyRef Name="code" />
+            <PropertyRef Name="price" />
+            <PropertyRef Name="quantity" />
+          </Key>
+          <Property Name="storedId" Type="int" Nullable="false" />
+          <Property Name="productId" Type="int" />
+          <Property Name="productName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="code" Type="int" Nullable="false" />
+          <Property Name="price" Type="int" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__tblStored__produ__398D8EEE">
+          <End Role="tblProducts" Type="Self.tblProducts" Multiplicity="0..1" />
+          <End Role="tblStoredProducts" Type="Self.tblStoredProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProducts">
+              <PropertyRef Name="productId" />
+            </Principal>
+            <Dependent Role="tblStoredProducts">
+              <PropertyRef Name="productId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbWarehouseModelStoreContainer">
+          <EntitySet Name="tblProducts" EntityType="Self.tblProducts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblStoredProducts" EntityType="Self.tblStoredProducts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vwStoredProducts" EntityType="Self.vwStoredProducts" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwStoredProducts].[storedId] AS [storedId], 
+    [vwStoredProducts].[productId] AS [productId], 
+    [vwStoredProducts].[productName] AS [productName], 
+    [vwStoredProducts].[code] AS [code], 
+    [vwStoredProducts].[price] AS [price], 
+    [vwStoredProducts].[quantity] AS [quantity]
+    FROM [dbo].[vwStoredProducts] AS [vwStoredProducts]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__tblStored__produ__398D8EEE" Association="Self.FK__tblStored__produ__398D8EEE">
+            <End Role="tblProducts" EntitySet="tblProducts" />
+            <End Role="tblStoredProducts" EntitySet="tblStoredProducts" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbWarehouseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblProduct">
+          <Key>
+            <PropertyRef Name="productId" />
+          </Key>
+          <Property Name="productId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="productName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="code" Type="Int32" Nullable="false" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="price" Type="Int32" Nullable="false" />
+          <Property Name="stored" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tblStoredProducts" Relationship="Self.FK__tblStored__produ__398D8EEE" FromRole="tblProducts" ToRole="tblStoredProducts" />
+        </EntityType>
+        <EntityType Name="tblStoredProduct">
+          <Key>
+            <PropertyRef Name="storedId" />
+          </Key>
+          <Property Name="storedId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="productId" Type="Int32" />
+          <NavigationProperty Name="tblProduct" Relationship="Self.FK__tblStored__produ__398D8EEE" FromRole="tblStoredProducts" ToRole="tblProducts" />
+        </EntityType>
+        <EntityType Name="vwStoredProduct">
+          <Key>
+            <PropertyRef Name="storedId" />
+            <PropertyRef Name="productName" />
+            <PropertyRef Name="code" />
+            <PropertyRef Name="price" />
+            <PropertyRef Name="quantity" />
+          </Key>
+          <Property Name="storedId" Type="Int32" Nullable="false" />
+          <Property Name="productId" Type="Int32" />
+          <Property Name="productName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="code" Type="Int32" Nullable="false" />
+          <Property Name="price" Type="Int32" Nullable="false" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__tblStored__produ__398D8EEE">
+          <End Role="tblProducts" Type="Self.tblProduct" Multiplicity="0..1" />
+          <End Role="tblStoredProducts" Type="Self.tblStoredProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProducts">
+              <PropertyRef Name="productId" />
+            </Principal>
+            <Dependent Role="tblStoredProducts">
+              <PropertyRef Name="productId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbWarehouseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblProducts" EntityType="Self.tblProduct" />
+          <EntitySet Name="tblStoredProducts" EntityType="Self.tblStoredProduct" />
+          <EntitySet Name="vwStoredProducts" EntityType="Self.vwStoredProduct" />
+          <AssociationSet Name="FK__tblStored__produ__398D8EEE" Association="Self.FK__tblStored__produ__398D8EEE">
+            <End Role="tblProducts" EntitySet="tblProducts" />
+            <End Role="tblStoredProducts" EntitySet="tblStoredProducts" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbWarehouseModelStoreContainer" CdmEntityContainer="dbWarehouseEntities">
+          <EntitySetMapping Name="tblProducts">
+            <EntityTypeMapping TypeName="dbWarehouseModel.tblProduct">
+              <MappingFragment StoreEntitySet="tblProducts">
+                <ScalarProperty Name="productId" ColumnName="productId" />
+                <ScalarProperty Name="productName" ColumnName="productName" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="stored" ColumnName="stored" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblStoredProducts">
+            <EntityTypeMapping TypeName="dbWarehouseModel.tblStoredProduct">
+              <MappingFragment StoreEntitySet="tblStoredProducts">
+                <ScalarProperty Name="storedId" ColumnName="storedId" />
+                <ScalarProperty Name="productId" ColumnName="productId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwStoredProducts">
+            <EntityTypeMapping TypeName="dbWarehouseModel.vwStoredProduct">
+              <MappingFragment StoreEntitySet="vwStoredProducts">
+                <ScalarProperty Name="storedId" ColumnName="storedId" />
+                <ScalarProperty Name="productId" ColumnName="productId" />
+                <ScalarProperty Name="productName" ColumnName="productName" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

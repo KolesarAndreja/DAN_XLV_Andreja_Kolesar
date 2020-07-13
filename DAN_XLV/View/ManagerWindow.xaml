@@ -8,7 +8,7 @@
         Title="ManagerWindow" Height="450" Width="800">
     <Grid>
         <Button Content="Add new product"
-                Command="{Binding addNewEmployee, UpdateSourceTrigger=PropertyChanged}"
+                Command="{Binding addProduct, UpdateSourceTrigger=PropertyChanged}"
                 HorizontalAlignment="Left"
                 Height="25"
                 Margin="80,15,0,0"
@@ -23,29 +23,47 @@
         <DataGrid x:Name="MenuGrid"
                   AutoGenerateColumns="False"
                   EnableRowVirtualization="True"
-                  ItemsSource="{Binding menuList, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding pizza, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding productsList, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding currentProduct, UpdateSourceTrigger=PropertyChanged}"
                   IsReadOnly="True"
                   HeadersVisibility="Column"
                   HorizontalGridLinesBrush="Black"
                   BorderBrush="Black"
                   Foreground="Black"
                   FontWeight="Bold"
-                  Margin="80,90,570,309">
+                  Margin="80,90,172,10">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Pizza"
-                                        Binding="{Binding dishName}" />
+                <DataGridTextColumn Header="Product ID"
+                                        Binding="{Binding productId}" />
+                <DataGridTextColumn Header="Product Name"
+                                    Binding="{Binding productName}" />
+                <DataGridTextColumn Header="Code"
+                                    Binding="{Binding code}" />
                 <DataGridTextColumn Header="Price (rsd)"
                                         Binding="{Binding price}" />
+                <DataGridTextColumn Header="Quantity"
+                                    Binding="{Binding quantity}" />
+                <DataGridTextColumn Header="Stored"
+                                    Binding="{Binding stored}" />
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button x:Name="btnOrder"
-                                        Content="Order"
-                                        Visibility="{Binding DataContext.btnToOrder, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, UpdateSourceTrigger=PropertyChanged}"
-                                        Command="{Binding DataContext.orderPizza, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, UpdateSourceTrigger=PropertyChanged}"
+                            <Button x:Name="btnEdit"
+                                        Content="Edit"
+                                        Command="{Binding DataContext.editThisProduct, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, UpdateSourceTrigger=PropertyChanged}"
                                         Margin="4"
                                         FontWeight="Bold" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="btnDelete"
+                                    Content="Delete"
+                                    Command="{Binding DataContext.deleteThisProduct, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, UpdateSourceTrigger=PropertyChanged}"
+                                    Margin="4"
+                                    FontWeight="Bold" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

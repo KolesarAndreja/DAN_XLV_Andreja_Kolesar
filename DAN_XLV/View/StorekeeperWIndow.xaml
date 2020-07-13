@@ -7,6 +7,55 @@
         mc:Ignorable="d"
         Title="StorekeeperWIndow" Height="450" Width="800">
     <Grid>
-        
+        <Label Content="STORE PRODUCTS:"
+               HorizontalAlignment="Left"
+               Margin="80,59,0,0"
+               VerticalAlignment="Top"
+               Width="165"
+               FontWeight="Bold" />
+        <Button Content="Log out"
+                Command="{Binding close, UpdateSourceTrigger=PropertyChanged}"
+                HorizontalAlignment="Left"
+                Margin="560,15,0,0"
+                VerticalAlignment="Top"
+                Width="75"
+                RenderTransformOrigin="-0.667,0.25"
+                Height="25" />
+        <DataGrid x:Name="MenuGrid"
+                  AutoGenerateColumns="False"
+                  EnableRowVirtualization="True"
+                  ItemsSource="{Binding productsList, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding currentProduct, UpdateSourceTrigger=PropertyChanged}"
+                  IsReadOnly="True"
+                  HeadersVisibility="Column"
+                  HorizontalGridLinesBrush="Black"
+                  BorderBrush="Black"
+                  Foreground="Black"
+                  FontWeight="Bold"
+                  Margin="80,90,172,10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Product ID"
+                                    Binding="{Binding productId}" />
+                <DataGridTextColumn Header="Product Name"
+                                    Binding="{Binding productName}" />
+                <DataGridTextColumn Header="Code"
+                                    Binding="{Binding code}" />
+                <DataGridTextColumn Header="Price (rsd)"
+                                    Binding="{Binding price}" />
+                <DataGridTextColumn Header="Quantity"
+                                    Binding="{Binding quantity}" />
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="btnStore"
+                                    Content="Store"
+                                    Command="{Binding DataContext.storeThisProduct, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, UpdateSourceTrigger=PropertyChanged}"
+                                    Margin="4"
+                                    FontWeight="Bold" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>

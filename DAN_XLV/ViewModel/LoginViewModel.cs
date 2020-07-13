@@ -2,10 +2,6 @@
 using DAN_XLV.Model;
 using DAN_XLV.View;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -58,14 +54,14 @@ namespace DAN_XLV.ViewModel
                 switch (currentUser.role)
                 {
                     case "manager":
-                        //Employee openEmployee = new Employee();
+                        ManagerWindow man = new ManagerWindow();
                         login.Close();
-                        //openEmployee.ShowDialog();
+                        man.ShowDialog();
                         break;
                     case "storekeeper":
-                        //Guest openGuest = new Guest(currentUser);
-                        //login.Close();
-                        //openGuest.ShowDialog();
+                        StorekeeperWIndow keeper = new StorekeeperWIndow();
+                        login.Close();
+                        keeper.ShowDialog();
                         break;
                     case null:
                         MessageBox.Show("Invalid username or password. Try again.");

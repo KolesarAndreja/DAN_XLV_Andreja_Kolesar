@@ -27,10 +27,12 @@ namespace DAN_XLV.Service
             }
         }
 
-        //public static List<tblProduct> GetOnlyNotStored()
-        //{
-        //    List<tblProduct> list = (from x i)
-        //}
+        //return only not stored products
+        public static List<tblProduct> GetOnlyNotStored()
+        {
+            List<tblProduct> list = GetAllProducts();
+            return list.Where(s => s.stored == false).ToList();
+        }
 
 
         public static List<vwStoredProduct> GetViewOfAllStoredProducts()
@@ -74,7 +76,7 @@ namespace DAN_XLV.Service
         #endregion
 
         #region STORE PRODUCT
-        public static void StoreProduct(tblProduct product)
+        public static string StoreProduct(tblProduct product)
         {
             try
             {
@@ -89,24 +91,33 @@ namespace DAN_XLV.Service
                         counter += v.quantity;
                     }
                     //check quanitity
-                    if(productToStore.stored == false && counter + productToStore.quantity <=100 )
+                    if(productToStore.stored == false)
                     {
-                        //change stored status
-                        productToStore.stored = true;
-                        context.SaveChanges();
-                        
-                        //add to stored product table
-                        tblStoredProduct sp = new tblStoredProduct();
-                        sp.productId = productToStore.productId;
-                        context.tblStoredProducts.Add(sp);
-                        context.SaveChanges();
+                        if(counter + productToStore.quantity <= 100)
+                        {
+                            //change stored status
+                            productToStore.stored = true;
+                            context.SaveChanges();
 
+                            //add to stored product table
+                            tblStoredProduct sp = new tblStoredProduct();
+                            sp.productId = productToStore.productId;
+                            context.tblStoredProducts.Add(sp);
+                            context.SaveChanges();
+                            return null;
+                        }
+                        else
+                        {
+                            return "There is not enough space for that product";
+                        }
                     }
+                    return null;
                 }
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine("Exception" + ex.Message.ToString());
+                return null;
             }
         }
         #endregion

@@ -48,6 +48,8 @@ namespace DAN_XLV.ViewModel
                 _isUpdated = value;
             }
         }
+
+        public LogIntoFile logAction;
         #region Commands
 
         private ICommand _save;
@@ -67,7 +69,18 @@ namespace DAN_XLV.ViewModel
         {
             try
             {
+                bool adding = false ;
+                //adding
+                if (newProduct.productId == 0)
+                {
+                    adding = true;
+                }
                 Service.Service.AddOrEditProduct(newProduct);
+                if (adding)
+                {
+                    string content = String.Format("Manager has added product with id " + newProduct.productId);
+                    logAction = new LogIntoFile(content);
+                }
                 isUpdated = true;
                 addProduct.Close();
             }
@@ -79,15 +92,14 @@ namespace DAN_XLV.ViewModel
 
         private bool CanSaveExecute()
         {
-            //if (String.IsNullOrEmpty(newProduct.firstname) || String.IsNullOrEmpty(newProduct.lastname) || String.IsNullOrEmpty(newProduct.jmbg) || String.IsNullOrEmpty(newProduct.username) || String.IsNullOrEmpty(newProduct.password))
-            //{
-            //    return false;
-            //}
-            //else
-            //{
-            //    return true;
-            //}
-            return true;
+            if (String.IsNullOrEmpty(newProduct.productName) || newProduct.price<= 0 || newProduct.quantity<= 0|| newProduct.code == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         internal void ShowDialog()

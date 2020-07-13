@@ -53,6 +53,8 @@ namespace DAN_XLV.ViewModel
         }
         #endregion
 
+        public LogIntoFile logAction;
+
         #region CONSTRUCTOR
         public ManagerViewModel(ManagerWindow open)
         {
@@ -79,30 +81,28 @@ namespace DAN_XLV.ViewModel
 
         private void DeleteThisProductExecute()
         {
-            MessageBoxResult result = MessageBox.Show("Do you realy want to delete this product?", "Delete Product", MessageBoxButton.YesNo);
-
-            if (result == MessageBoxResult.Yes)
+            if (!currentProduct.stored)
             {
-                Service.Service.DeleteProduct(currentProduct);
-                //string content2 = "User  " + viewUser.fullname + " with id " + viewUser.userID + " has been deleted.";
-                //LogIntoFile.getInstance().PrintActionIntoFile(content2);
-                isDeletedProduct = true;
-                productsList = Service.Service.GetAllProducts();
+                MessageBoxResult result = MessageBox.Show("Do you realy want to delete this product?", "Delete Product", MessageBoxButton.YesNo);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    Service.Service.DeleteProduct(currentProduct);
+                    string content = String.Format("Manager has deleted product with id " + currentProduct.productId);
+                    logAction = new LogIntoFile(content);
+                    isDeletedProduct = true;
+                    productsList = Service.Service.GetAllProducts();
+                }
             }
+            else
+            {
+                MessageBox.Show("You cannot delete stored product");
+            }
+      
         }
         private bool CanDeleteThisProductExecute()
         {
             return true;
-            //if (!currentProduct.stored)
-            //{
-            //    return true;
-            //}
-            //else
-            //{
-            //    MessageBox.Show("You cannot delete stored product.");
-            //    return false;
-            //}
-            
         }
         #endregion
 
@@ -127,6 +127,7 @@ namespace DAN_XLV.ViewModel
             {
                 if (currentProduct != null)
                 {
+                    int id = currentProduct.productId;
                     AddWindow open = new AddWindow(currentProduct);
                     AddProductViewModel editProduct = new AddProductViewModel(open);
                     open.ShowDialog();
@@ -134,6 +135,8 @@ namespace DAN_XLV.ViewModel
                     if ((open.DataContext as AddProductViewModel).isUpdated== true)
                     {
                         productsList = Service.Service.GetAllProducts();
+                        string content = String.Format("Manager has edited product with id " + id);
+                        logAction = new LogIntoFile(content);
                     }
                 }
             }
@@ -170,6 +173,7 @@ namespace DAN_XLV.ViewModel
                 add.ShowDialog();
                 if ((add.DataContext as AddProductViewModel).isUpdated == true)
                 {
+
                     productsList = Service.Service.GetAllProducts();
                 }
             }

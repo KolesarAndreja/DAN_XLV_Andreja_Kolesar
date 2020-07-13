@@ -1,0 +1,10 @@
+14-Jul-20 00:28 Manager has deleted product with id 7
+14-Jul-20 00:30 Manager has deleted product with id 5
+14-Jul-20 00:32 Manager has deleted product with id 5
+14-Jul-20 00:33 Manager has deleted product with id 8
+14-Jul-20 00:33 Manager has deleted product with id 5
+14-Jul-20 00:40 Manager has added product with id 12
+14-Jul-20 00:45 Manager has added product with id 13
+14-Jul-20 00:50 Manager has edited product with id 10
+14-Jul-20 00:51 Manager has edited product with id 12
+14-Jul-20 00:51 Manager has edited product with id 13
